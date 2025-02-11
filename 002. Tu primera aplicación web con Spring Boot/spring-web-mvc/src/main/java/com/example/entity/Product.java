@@ -16,14 +16,21 @@ public class Product {
 
     private Integer quantity;
 
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+
     public Product() {
     }
 
-    public Product(Long id, String title, Double price, Integer quantity) {
+    public Product(Long id, String title, Double price, Integer quantity, Categoria categoria) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.quantity = quantity;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -58,6 +65,14 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -65,6 +80,7 @@ public class Product {
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", categoria=" + categoria +
                 '}';
     }
 }
