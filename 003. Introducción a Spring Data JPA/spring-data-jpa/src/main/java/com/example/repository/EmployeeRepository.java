@@ -18,6 +18,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllByMarriedTrue();
     List<Employee> findAllByMarriedFalse();
 
-
-
 }

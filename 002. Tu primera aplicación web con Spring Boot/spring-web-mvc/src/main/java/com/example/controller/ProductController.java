@@ -135,4 +135,15 @@ public class ProductController {
         return "redirect:/products";
     }
 
+    /*
+GET http://localhost:8080/products
+ */
+    @GetMapping("/search")
+    public String search(@RequestParam("keyword") String keyword,Model model){
+
+        List<Product> products = this.repository.findAllByTitleContaining(keyword);
+        model.addAttribute("products", products);
+        return "product-search";
+    }
+
 }

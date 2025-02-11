@@ -25,6 +25,10 @@ public class App {
 //                new Product(null, "Zapatillas", 69.99, 20)
         );
         repository.saveAll(products);
+
+        List<Product> products2 = repository.findAllByPrice(8.99);
+        products2.forEach(System.out::println);
+
     }
 
 }
