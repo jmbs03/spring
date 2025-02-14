@@ -16,6 +16,10 @@ public class Product {
 
     private Integer quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = true)
+    private Category category;
+
     public Product() {
     }
 
@@ -58,6 +62,14 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -65,6 +77,7 @@ public class Product {
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
+
                 '}';
     }
 }

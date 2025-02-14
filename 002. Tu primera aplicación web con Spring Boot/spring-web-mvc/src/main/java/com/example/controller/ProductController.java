@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.Product;
+import com.example.repository.CategoryRepository;
 import com.example.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,12 @@ import java.util.Optional;
 @RequestMapping("/products")
 public class ProductController {
 
-
     private final ProductRepository repository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductController(ProductRepository repository) {
+    public ProductController(ProductRepository repository, CategoryRepository categoryRepository) {
         this.repository = repository;
+        this.categoryRepository = categoryRepository;
     }
 
     /*
@@ -38,6 +40,7 @@ public class ProductController {
     @GetMapping("/new")
     public String getForm(Model model){
         model.addAttribute("products", new Product());
+        model.addAttribute("categories", categoryRepository.findAllByStateTrue());
         return "product-form";
     }
 
@@ -87,6 +90,7 @@ public class ProductController {
      */
     @PostMapping("/{id}/edit")
     public String update(@ModelAttribute("product") Product product, RedirectAttributes redirectAttributes){
+        System.out.println("Producto que me llega: " + product);
         this.repository.save(product);
         redirectAttributes.addFlashAttribute("message", "Producto modificado con éxito");
         redirectAttributes.addFlashAttribute("alert", "success");

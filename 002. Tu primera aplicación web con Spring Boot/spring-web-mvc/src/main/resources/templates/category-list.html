@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de categorias</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+<div class="container text-center mt-5">
+    <h2 class="mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+            <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.18.18 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.18.18 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.18.18 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.18.18 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.18.18 0 0 0 .134-.098z"/>
+            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+        </svg>
+        Gestión de categorías</h2>
+    <div th:if="${message}" th:class="'alert alert-' + ${alert}" role="alert">
+        <a th:text="${message}"></a>
+    </div>
+    <!-- Formulario de búsqueda -->
+    <form class="d-flex mb-3" th:action="@{/categories/search}" method="get">
+        <input class="form-control me-2" type="text" name="keyword" placeholder="Buscar categoria..." id="title" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    </form>
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-8">
+
+<!--            Tabla de categorias-->
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary me-1" th:href="@{/categories/new}">Nuevo</a>
+                <a class="btn btn-danger" th:href="@{/categories/delete/all}">Borrar todo</a>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="category: ${categories}">
+                    <th scope="row" th:text="${category.id}"></th>
+                    <td th:text="${category.name}"></td>
+                    <td th:text="${category.state}"></td>
+                    <td>
+                        <img width="100" height="100" th:src="${category.urlImage}" th:alt="category.description">
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/categories/{id}/view(id=${category.id})}">Ver</a>
+                        <a class="btn btn-success" th:href="@{/categories/{id}/edit(id=${category.id})}">Editar</a>
+                        <a class="btn btn-danger" th:href="@{/categories/{id}/delete(id=${category.id})}">Borrar</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

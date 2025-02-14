@@ -23,6 +23,14 @@
             <label for="quantity" class="form-label">Cantidad</label>
             <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Ingrese la cantidad" required>
         </div>
+        <div class="mb-3">
+            <label for="category" class="form-control">Categoria</label>
+            <select id="category" name="category">
+                <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
+
+
         <button type="submit" class="btn btn-primary" th:href="@{/products}">Crear</button>
         <a class="btn btn-secondary" th:href="@{/products}">Volver</a>
     </form>
